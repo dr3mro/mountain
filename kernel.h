@@ -30,7 +30,7 @@ signals:
     void isUpFinished();
 public slots:
     void Mount();
-    void Unmount();
+    bool Unmount();
     void Settings();
     void Quit();
     void onNetworkStateChanged(QNetworkSession::State state);

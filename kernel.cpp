@@ -28,7 +28,10 @@ Kernel::~Kernel()
 void Kernel::Mount()
 {
     if(!isUp())
+    {
+        QMessageBox::information(0,"Error","Your Device seems to be offline.");
         return;
+    }
 
     QProcess process1;
     QProcess process2;
@@ -51,19 +54,20 @@ void Kernel::Mount()
 
 }
 
-void Kernel::Unmount()
+bool Kernel::Unmount()
 {
     int exitCode = QProcess::execute("umount", QStringList() << settings.options.mount_point);
-    if (0 == exitCode || !isMount())
+    bool isMounted = isMount();
+    if (0 == exitCode || !isMounted)
         emit showMount();
     else
         emit showUnmount();
+    return isMounted;
 }
 
 void Kernel::Settings()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(settings.fileName()));
-    qDebug() << settings.fileName();
 }
 
 void Kernel::Quit()
@@ -73,7 +77,6 @@ void Kernel::Quit()
 
 void Kernel::onNetworkStateChanged(QNetworkSession::State state)
 {
-    qDebug() << state;
     if(isMount())
         Unmount();
     else if(state == QNetworkSession::State::Connected)
@@ -90,18 +93,34 @@ void Kernel::postBoot()
 
 void Kernel::Shutdown()
 {
-    executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/PowerOff")
+    bool isMounted = isMount();
+
+    if(isMounted)
+        isMounted = Unmount();
+
+    if(!isMounted)
+        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/PowerOff")
                       .arg(settings.options.password)
                       .arg(settings.options.username)
                       .arg(settings.options.device_ip));
+    else
+        QMessageBox::information(0,"Error","Your Device seems to be busy.");
 }
 
 void Kernel::Reboot()
 {
-    executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/Reboot")
+    bool isMounted = isMount();
+
+    if(isMounted)
+        isMounted = Unmount();
+
+    if(!isMounted)
+        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/Reboot")
                       .arg(settings.options.password)
                       .arg(settings.options.username)
                       .arg(settings.options.device_ip));
+    else
+        QMessageBox::information(0,"Error","Your Device seems to be busy.");
 }
 
 void Kernel::Shell()
@@ -161,6 +180,12 @@ bool Kernel::isUp()
 
 void Kernel::executeInTerminal(QString command)
 {
+    if(!isUp())
+    {
+        QMessageBox::information(0,"Error","Your Device seems to be offline.");
+        return;
+    }
+
     QString aScript=QString(
     "if application \"Terminal\" is running then\n"
     "    tell application \"Terminal\"\n"
