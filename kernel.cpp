@@ -61,7 +61,10 @@ bool Kernel::Unmount()
     if (0 == exitCode || !isMounted)
         emit showMount();
     else
+    {
         emit showUnmount();
+        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
+    }
     return isMounted;
 }
 
@@ -100,11 +103,9 @@ void Kernel::Shutdown()
 
     if(!isMounted)
         executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/PowerOff")
-                      .arg(settings.options.password)
-                      .arg(settings.options.username)
-                      .arg(settings.options.device_ip));
-    else
-        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
+                          .arg(settings.options.password)
+                          .arg(settings.options.username)
+                          .arg(settings.options.device_ip));
 }
 
 void Kernel::Reboot()
@@ -116,11 +117,9 @@ void Kernel::Reboot()
 
     if(!isMounted)
         executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/Reboot")
-                      .arg(settings.options.password)
-                      .arg(settings.options.username)
-                      .arg(settings.options.device_ip));
-    else
-        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
+                          .arg(settings.options.password)
+                          .arg(settings.options.username)
+                          .arg(settings.options.device_ip));
 }
 
 void Kernel::Shell()
@@ -187,15 +186,15 @@ void Kernel::executeInTerminal(QString command)
     }
 
     QString aScript=QString(
-    "if application \"Terminal\" is running then\n"
-    "    tell application \"Terminal\"\n"
-    "        (do script \"%1\") activate\n"
-    "    end tell\n"
-    "else\n"
-    "    tell application \"Terminal\"\n"
-    "        (do script \"%1\" in window 1) activate\n"
-    "    end tell\n"
-    "end if\n").arg(command);
+                "if application \"Terminal\" is running then\n"
+                "    tell application \"Terminal\"\n"
+                "        (do script \"%1\") activate\n"
+                "    end tell\n"
+                "else\n"
+                "    tell application \"Terminal\"\n"
+                "        (do script \"%1\" in window 1) activate\n"
+                "    end tell\n"
+                "end if\n").arg(command);
 
 
     QStringList args = QStringList()
