@@ -49,12 +49,14 @@ void Kernel::Mount()
     if(isMount())
         emit showUnmount();
     else
+    {
         emit showMount();
-
+        QMessageBox::information(nullptr,"Error","Unable to mount your device.");
+    }
 
 }
 
-bool Kernel::Unmount()
+bool Kernel::Unmount(bool silent)
 {
     int exitCode = QProcess::execute("umount", QStringList() << settings.options.mount_point);
     bool isMounted = isMount();
@@ -63,7 +65,7 @@ bool Kernel::Unmount()
     else
     {
         emit showUnmount();
-        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
+        if(!silent) QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
     }
     return isMounted;
 }
@@ -133,7 +135,7 @@ void Kernel::Shell()
 void Kernel::checkDevice()
 {
     if(isMount() && !isUp())
-        Unmount();
+        Unmount(true);
 }
 
 bool Kernel::isMount()
