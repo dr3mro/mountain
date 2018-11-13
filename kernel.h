@@ -31,6 +31,7 @@ signals:
 public slots:
     void Mount();
     bool Unmount(bool silent=false);
+    void OpenFinder();
     void Settings();
     void Quit()__attribute__((noreturn));
     void onNetworkStateChanged(QNetworkSession::State state);

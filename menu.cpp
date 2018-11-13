@@ -4,6 +4,7 @@
 Menu::Menu(Kernel &kernel, QWidget *parent):QMenu(parent),_kernel(&kernel)
 {
     addAction("Mount",&kernel,SLOT(Mount()));
+    addAction("Open in Finder",&kernel,SLOT(OpenFinder()));
     addAction("UnMount",&kernel,SLOT(Unmount()));
     addAction("Settings",&kernel,SLOT(Settings()));
     addSeparator();
@@ -28,12 +29,14 @@ void Menu::showMountOnly()
 {
     actions().at(0)->setVisible(true);
     actions().at(1)->setVisible(false);
+    actions().at(2)->setVisible(false);
 }
 
 void Menu::showUnmountOnly()
 {
     actions().at(0)->setVisible(false);
     actions().at(1)->setVisible(true);
+    actions().at(2)->setVisible(true);
 }
 
 void Menu::toggleUi()

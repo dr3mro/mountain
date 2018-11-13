@@ -70,6 +70,11 @@ bool Kernel::Unmount(bool silent)
     return isMounted;
 }
 
+void Kernel::OpenFinder()
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(settings.options.mount_point));
+}
+
 void Kernel::Settings()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(settings.fileName()));
