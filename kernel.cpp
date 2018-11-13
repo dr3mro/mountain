@@ -29,7 +29,7 @@ void Kernel::Mount()
 {
     if(!isUp())
     {
-        QMessageBox::information(0,"Error","Your Device seems to be offline.");
+        QMessageBox::information(nullptr,"Error","Your Device seems to be offline.");
         return;
     }
 
@@ -104,7 +104,7 @@ void Kernel::Shutdown()
                       .arg(settings.options.username)
                       .arg(settings.options.device_ip));
     else
-        QMessageBox::information(0,"Error","Your Device seems to be busy.");
+        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
 }
 
 void Kernel::Reboot()
@@ -120,7 +120,7 @@ void Kernel::Reboot()
                       .arg(settings.options.username)
                       .arg(settings.options.device_ip));
     else
-        QMessageBox::information(0,"Error","Your Device seems to be busy.");
+        QMessageBox::information(nullptr,"Error","Your Device seems to be busy.");
 }
 
 void Kernel::Shell()
@@ -182,7 +182,7 @@ void Kernel::executeInTerminal(QString command)
 {
     if(!isUp())
     {
-        QMessageBox::information(0,"Error","Your Device seems to be offline.");
+        QMessageBox::information(nullptr,"Error","Your Device seems to be offline.");
         return;
     }
 

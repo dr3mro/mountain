@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui network concurrent
-
+CONFIG+=sdk_no_version_check
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 ICON = VolumeIcon.icns
 TARGET = Mountain

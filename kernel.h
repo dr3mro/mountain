@@ -32,7 +32,7 @@ public slots:
     void Mount();
     bool Unmount();
     void Settings();
-    void Quit();
+    void Quit()__attribute__((noreturn));
     void onNetworkStateChanged(QNetworkSession::State state);
     void preBoot();
     void postBoot();
