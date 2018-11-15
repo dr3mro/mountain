@@ -17,11 +17,11 @@ Menu::Menu(Kernel &kernel, QWidget *parent):QMenu(parent),_kernel(&kernel)
     addSeparator();
     addAction("Quit",&kernel,SLOT(Quit()));
 
-    connect(&kernel,SIGNAL(showMount()),this,SLOT(showMountOnly()));
-    connect(&kernel,SIGNAL(showUnmount()),this,SLOT(showUnmountOnly()));
+    connect(&kernel,&Kernel::showMount,this,&Menu::showMountOnly);
+    connect(&kernel,&Kernel::showUnmount,this,&Menu::showUnmountOnly);
 
-    connect(this,SIGNAL(aboutToShow()),&kernel,SLOT(checkDevice()));
-    connect(this,SIGNAL(aboutToShow()),this,SLOT(toggleUi()));
+    connect(this,&Menu::aboutToShow,&kernel,&Kernel::checkDevice);
+    connect(this,&Menu::aboutToShow,this,&Menu::toggleUi);
     //qApp->installEventFilter(this);
 }
 

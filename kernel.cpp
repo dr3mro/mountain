@@ -14,7 +14,7 @@ Kernel::Kernel(QObject *parent) : QObject(parent)
 
     cfg = manager.defaultConfiguration();
     session = new QNetworkSession(cfg);
-    connect(session, SIGNAL(stateChanged(QNetworkSession::State)), this, SLOT(onNetworkStateChanged(QNetworkSession::State)));
+    connect(session, &QNetworkSession::stateChanged, this, &Kernel::onNetworkStateChanged);
     session->open();
     session->waitForOpened(100);
 
@@ -95,7 +95,7 @@ void Kernel::onNetworkStateChanged(QNetworkSession::State state)
 
 void Kernel::postBoot()
 {
-    disconnect(this,SIGNAL(isUpFinished()),this,SLOT(postBoot()));
+    disconnect(this,&Kernel::isUpFinished,this,&Kernel::postBoot);
 
     if(isUpFuture.result())
         Mount();
@@ -170,7 +170,7 @@ void Kernel::preBoot()
 {
     if(isMount())
         return;
-    connect(this,SIGNAL(isUpFinished()),this,SLOT(postBoot()));
+    connect(this,&Kernel::isUpFinished,this,&Kernel::postBoot);
     isUpFuture = QtConcurrent::run(this,&Kernel::isUp);
 }
 

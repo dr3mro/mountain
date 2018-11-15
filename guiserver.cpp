@@ -2,10 +2,10 @@
 
 GuiServer::GuiServer(Kernel & kernel)
 {
-     trayMenu = new Menu(kernel);
-     trayIcon = new TrayIcon(trayMenu);
+    trayMenu = new Menu(kernel);
+    trayIcon = new TrayIcon(trayMenu); Q_UNUSED(trayIcon)
 
-     connect(&kernel,SIGNAL(launchSettings()),this,SLOT(launchSettings()));
+    connect(&kernel,&Kernel::launchSettings,this,&GuiServer::launchSettings);
 
 }
 
