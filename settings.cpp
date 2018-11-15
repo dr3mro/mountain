@@ -13,6 +13,9 @@ mSettings::mSettings(QObject *parent):QSettings(parent)
         setValue(MOUNTPOINT,QVariant("/Volumes/MyCloud"));
         setValue(SSHUSER,QVariant("root"));
         setValue(SSHPASS,QVariant("12345"));
+        setValue(SHUTDOWNSCRIPT,QVariant("/opt/bin/PowerOff"));
+        setValue(REBOOTSCRIPT,QVariant("/opt/bin/Reboot"));
+
     }
 
     options.mount_command = value(COMMAND).toString();
@@ -22,5 +25,7 @@ mSettings::mSettings(QObject *parent):QSettings(parent)
     options.mount_point = value(MOUNTPOINT).toString();
     options.username = value(SSHUSER).toString();
     options.password = value(SSHPASS).toString();
+    options.shutdown_script = value(SHUTDOWNSCRIPT).toString();
+    options.reboot_script = value(REBOOTSCRIPT).toString();
 
 }

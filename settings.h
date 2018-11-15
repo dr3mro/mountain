@@ -15,6 +15,8 @@
 #define SSHPASS "ssh_password"
 #define AUTOMOUNT "auto_mount"
 #define AUTOUNMOUNT "auto_unmount"
+#define REBOOTSCRIPT "reboot_script"
+#define SHUTDOWNSCRIPT "shutdown_script"
 
 class mSettings : public QSettings
 {
@@ -29,6 +31,8 @@ public:
         QString mount_point;
         QString username;
         QString password;
+        QString shutdown_script;
+        QString reboot_script;
     };
     Options options;
     mSettings(QObject *parent = Q_NULLPTR);

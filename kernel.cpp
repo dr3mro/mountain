@@ -109,10 +109,11 @@ void Kernel::Shutdown()
         isMounted = Unmount();
 
     if(!isMounted)
-        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/PowerOff")
+        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 %4")
                           .arg(settings.options.password)
                           .arg(settings.options.username)
-                          .arg(settings.options.device_ip));
+                          .arg(settings.options.device_ip)
+                          .arg(settings.options.shutdown_script));
 }
 
 void Kernel::Reboot()
@@ -123,10 +124,11 @@ void Kernel::Reboot()
         isMounted = Unmount();
 
     if(!isMounted)
-        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 /opt/bin/Reboot")
+        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 %4")
                           .arg(settings.options.password)
                           .arg(settings.options.username)
-                          .arg(settings.options.device_ip));
+                          .arg(settings.options.device_ip)
+                          .arg(settings.options.reboot_script));
 }
 
 void Kernel::Shell()

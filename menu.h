@@ -3,8 +3,6 @@
 
 #include <QWidget>
 #include <QMenu>
-//#include <QEvent>
-//#include <QKeyEvent>
 #include "kernel.h"
 
 class Menu : public QMenu
