@@ -13,16 +13,11 @@ Kernel::Kernel(QObject *parent) : QObject(parent)
     QTimer::singleShot(2000,this,SLOT(preBoot()));
 
     cfg = manager.defaultConfiguration();
-    session = new QNetworkSession(cfg);
-    connect(session, &QNetworkSession::stateChanged, this, &Kernel::onNetworkStateChanged);
+    session = std::make_unique<QNetworkSession>(cfg);
+    connect(session.get(), &QNetworkSession::stateChanged, this, &Kernel::onNetworkStateChanged);
     session->open();
     session->waitForOpened(100);
 
-}
-
-Kernel::~Kernel()
-{
-    delete session;
 }
 
 void Kernel::Mount()

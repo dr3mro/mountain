@@ -9,7 +9,6 @@ class TrayIcon : public QSystemTrayIcon
 {
 public:
     explicit TrayIcon(Menu *menu, QWidget *parent=nullptr);
-private:
 
 };
 

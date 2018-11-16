@@ -22,7 +22,6 @@ Menu::Menu(Kernel &kernel, QWidget *parent):QMenu(parent),_kernel(&kernel)
 
     connect(this,&Menu::aboutToShow,&kernel,&Kernel::checkDevice);
     connect(this,&Menu::aboutToShow,this,&Menu::toggleUi);
-    //qApp->installEventFilter(this);
 }
 
 void Menu::showMountOnly()
@@ -53,10 +52,3 @@ void Menu::toggleUi()
     subMenu.setTitle( ( (title=="(no") || (title == "attached;") || (title == "0:00") )? "Power":title);
 
 }
-
-//bool Menu::eventFilter(QObject *watched, QEvent *event)
-//{
-//    qDebug() << event->type() << watched->objectName();
-
-//    return QMenu::eventFilter(watched,event);
-//}

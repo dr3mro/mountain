@@ -11,9 +11,10 @@
 #include <QNetworkSession>
 #include <QUrl>
 #include <QTimer>
-#include "settings.h"
 #include <QtConcurrent>
 #include <QFuture>
+#include "settings.h"
+#include <memory.h>
 
 class Kernel : public QObject
 {
@@ -21,7 +22,6 @@ class Kernel : public QObject
 public:
     explicit Kernel(QObject *parent = nullptr);
     bool isMount();
-    ~Kernel();
 
 signals:
     void launchSettings();
@@ -48,7 +48,7 @@ private:
     mSettings settings;
     QNetworkConfigurationManager manager;
     QNetworkConfiguration cfg;
-    QNetworkSession *session;
+    std::unique_ptr<QNetworkSession> session;
     QFuture<bool> isUpFuture;
 };
 

@@ -37,8 +37,6 @@ public:
     Options options;
     mSettings(QObject *parent = Q_NULLPTR);
 
-private:
-
 };
 
 #endif // SETTINGS_H

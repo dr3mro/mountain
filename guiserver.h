@@ -2,6 +2,7 @@
 #define GUISERVER_H
 
 #include <QObject>
+#include <memory.h>
 #include "trayicon.h"
 #include "menu.h"
 #include "kernel.h"
@@ -11,17 +12,11 @@ class GuiServer : public QObject
     Q_OBJECT
 public:
     explicit GuiServer(Kernel &kernel);
-    ~GuiServer();
 
 signals:
 
-public slots:
-    void launchSettings();
 private:
-    TrayIcon *trayIcon;
-    Menu *trayMenu;
+    std::unique_ptr<Menu> trayMenu;
+    std::unique_ptr<TrayIcon> trayIcon;
 };
-
-
-
 #endif // GUISERVER_H

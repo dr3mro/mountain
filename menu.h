@@ -19,8 +19,6 @@ private slots:
 private:
     Kernel * _kernel;
     QMenu subMenu;
-protected:
-    //bool eventFilter(QObject *watched, QEvent *event);
 };
 
 #endif // MENU_H
