@@ -28,6 +28,8 @@ void Kernel::Mount()
         return;
     }
 
+
+
     QProcess process1;
     QProcess process2;
 
@@ -172,7 +174,7 @@ void Kernel::preBoot()
 bool Kernel::isUp()
 {
     bool state;
-    int exitCode = QProcess::execute("ping", QStringList() << "-W" << "100" << "-c1" << "192.168.1.3");
+    int exitCode = QProcess::execute("ping", QStringList() << "-W" << "100" << "-c1" << settings.options.device_ip);
     if (0 == exitCode)
         state = true;
     else

@@ -6,11 +6,11 @@ mSettings::mSettings(QObject *parent):QSettings(parent)
     setDefaultFormat(QSettings::NativeFormat);
     if (!QFile(fileName()).exists())
     {
-        setValue(COMMAND,QVariant("/usr/local/bin/sshfs"));
+        setValue(COMMAND,QVariant("/opt/local/bin/sshfs"));
         setValue(DEVICE,QVariant("192.168.1.3"));
         setValue(REMOTEPATH,QVariant("/opt/MyCloud"));
         setValue(OPTIONS,QVariant("password_stdin,volname=MyCloud,uid=501,gid=20,umask=0000,noappledouble,no_readahead,no_remote_lock"));
-        setValue(MOUNTPOINT,QVariant("/Volumes/MyCloud"));
+        setValue(MOUNTPOINT,QVariant("/Users/amr/MyCloud"));
         setValue(SSHUSER,QVariant("root"));
         setValue(SSHPASS,QVariant("12345"));
         setValue(SHUTDOWNSCRIPT,QVariant("/opt/bin/PowerOff"));
