@@ -28,7 +28,7 @@ void Kernel::Mount()
         return;
     }
 
-
+    qDebug() << getCommandArgs();
 
     QProcess process1;
     QProcess process2;

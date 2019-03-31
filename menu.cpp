@@ -49,6 +49,6 @@ void Menu::toggleUi()
     process.start("pmset -g ps");
     process.waitForFinished();
     QString title = QString(process.readAllStandardOutput()).split(" ").at(8);
-    subMenu.setTitle( ( (title=="(no") || (title == "attached;") || (title == "0:00") )? "Power":title);
+    subMenu.setTitle( ( (title=="(no") || (title == "attached;") || (title == "charge;") || (title == "0:00") )? "Power":title);
 
 }
