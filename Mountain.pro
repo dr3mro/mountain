@@ -7,8 +7,9 @@
 QT       += core gui network concurrent
 CONFIG+=sdk_no_version_check
 CONFIG += c++14
+CONFIG += app_bundle
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-ICON = VolumeIcon.icns
+ICON = icon.icns
 TARGET = Mountain
 TEMPLATE = app
 QMAKE_INFO_PLIST = Info.plist
@@ -42,3 +43,5 @@ FORMS +=
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

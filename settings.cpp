@@ -9,7 +9,7 @@ mSettings::mSettings(QObject *parent):QSettings(parent)
         setValue(COMMAND,QVariant("/opt/local/bin/sshfs"));
         setValue(DEVICE,QVariant("192.168.1.3"));
         setValue(REMOTEPATH,QVariant("/opt/MyCloud"));
-        setValue(OPTIONS,QVariant("password_stdin,volname=MyCloud,uid=501,gid=20,umask=0000,noappledouble,no_readahead,no_remote_lock,default_permissions,auto_xattr,compression=no,iosize=1048576"));
+        setValue(OPTIONS,QVariant("password_stdin,volname=MyCloud,uid=501,gid=20,umask=0000,noappledouble,no_readahead,no_remote_lock,defer_permissions,compression=no,iosize=1048576,local,auto_cache,reconnect"));
         setValue(MOUNTPOINT,QVariant("/mnt/MyCloud"));
         setValue(SSHUSER,QVariant("root"));
         setValue(SSHPASS,QVariant("12345"));
