@@ -28,8 +28,6 @@ void Kernel::Mount()
         return;
     }
 
-    qDebug() << getCommandArgs();
-
     QProcess process1;
     QProcess process2;
 
@@ -106,11 +104,16 @@ void Kernel::Shutdown()
         isMounted = Unmount();
 
     if(!isMounted)
-        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 %4")
+    {
+        readSettings();
+        executeInTerminal(QString("sshpass -p %1 ssh %2 %3@%4 %5")
                           .arg(settings.options.password)
+                          .arg(settings.options.args)
                           .arg(settings.options.username)
                           .arg(settings.options.device_ip)
                           .arg(settings.options.shutdown_script));
+
+    }
 }
 
 void Kernel::Reboot()
@@ -121,17 +124,23 @@ void Kernel::Reboot()
         isMounted = Unmount();
 
     if(!isMounted)
-        executeInTerminal(QString("sshpass -p %1 ssh %2@%3 %4")
+    {
+        readSettings();
+        executeInTerminal(QString("sshpass -p %1 ssh %2 %3@%4 %5")
                           .arg(settings.options.password)
+                          .arg(settings.options.args)
                           .arg(settings.options.username)
                           .arg(settings.options.device_ip)
                           .arg(settings.options.reboot_script));
+    }
 }
 
 void Kernel::Shell()
 {
-    executeInTerminal(QString("sshpass -p %1 ssh %2@%3")
+    readSettings();
+    executeInTerminal(QString("sshpass -p %1 ssh %2 %3@%4")
                       .arg(settings.options.password)
+                      .arg(settings.options.args)
                       .arg(settings.options.username)
                       .arg(settings.options.device_ip));
 }
@@ -174,6 +183,7 @@ void Kernel::preBoot()
 bool Kernel::isUp()
 {
     bool state;
+    readSettings();
     int exitCode = QProcess::execute("ping", QStringList() << "-W" << "100" << "-c1" << settings.options.device_ip);
     if (0 == exitCode)
         state = true;
@@ -213,14 +223,20 @@ void Kernel::executeInTerminal(QString command)
     p.waitForFinished();
 }
 
+void Kernel::readSettings()
+{
+    settings.options = settings.getOptions();
+}
+
 QStringList Kernel::getCommandArgs()
 {
-
+    readSettings();
     return QStringList() << QString("%1@%2:%3")
                             .arg(settings.options.username)
                             .arg(settings.options.device_ip)
                             .arg(settings.options.remote_path)
                          << settings.options.mount_point
+                         << settings.options.args
                          << QString("-o%1")
                             .arg(settings.options.mount_options);
 

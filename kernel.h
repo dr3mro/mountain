@@ -44,6 +44,7 @@ public slots:
 private:
     bool isUp();
     void executeInTerminal(QString command);
+    void readSettings();
     QStringList getCommandArgs();
     mSettings settings;
     QNetworkConfigurationManager manager;

@@ -17,6 +17,7 @@
 #define AUTOUNMOUNT "auto_unmount"
 #define REBOOTSCRIPT "reboot_script"
 #define SHUTDOWNSCRIPT "shutdown_script"
+#define SSHARGS "sshargs"
 
 class mSettings : public QSettings
 {
@@ -33,10 +34,11 @@ public:
         QString password;
         QString shutdown_script;
         QString reboot_script;
+        QString args;
     };
     Options options;
     mSettings(QObject *parent = Q_NULLPTR);
-
+    Options &getOptions();
 };
 
 #endif // SETTINGS_H
