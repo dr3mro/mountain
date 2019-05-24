@@ -9,13 +9,13 @@ mSettings::mSettings(QObject *parent):QSettings(parent)
         setValue(COMMAND,QVariant("/opt/local/bin/sshfs"));
         setValue(DEVICE,QVariant("192.168.1.3"));
         setValue(REMOTEPATH,QVariant("/opt/MyCloud"));
-        setValue(OPTIONS,QVariant("password_stdin,volname=MyCloud,uid=501,gid=20,umask=0000,noappledouble,defer_permissions,reconnect,local,compression=no,cache=yes,kernel_cache,Cipher=arcfour"));
+        setValue(OPTIONS,QVariant("password_stdin,volname=MyCloud,uid=501,gid=20,umask=0000,noappledouble,defer_permissions,reconnect,compression=no,Cipher=arcfour,cache=no,ServerAliveInterval=3,ServerAliveCountMax=2"));
         setValue(MOUNTPOINT,QVariant("/mnt/MyCloud"));
-        setValue(SSHUSER,QVariant("sshd"));
+        setValue(SSHUSER,QVariant("root"));
         setValue(SSHPASS,QVariant("12345"));
         setValue(SHUTDOWNSCRIPT,QVariant("/opt/bin/PowerOff"));
         setValue(REBOOTSCRIPT,QVariant("/opt/bin/Reboot"));
-        setValue(SSHARGS,QVariant("-p 25"));
+        setValue(SSHARGS,QVariant("-p 22"));
 
     }
 

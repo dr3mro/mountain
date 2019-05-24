@@ -24,12 +24,16 @@ void Kernel::Mount()
 {
     if(!isUp())
     {
-        QMessageBox::information(nullptr,"Error","Your Device seems to be offline.");
+        QAction* button = qobject_cast<QAction*>(sender());
+        if(button != nullptr )
+            QMessageBox::information(nullptr,"Error","Your Device seems to be offline.");
+
         return;
     }
 
     QProcess process1;
     QProcess process2;
+
 
     process1.setStandardOutputProcess(&process2);
 
@@ -40,6 +44,8 @@ void Kernel::Mount()
     process2.start(settings.options.mount_command,getCommandArgs());
 
     process2.waitForFinished();
+
+    //qDebug() << process2.errorString();
 
     if(isMount())
         emit showUnmount();

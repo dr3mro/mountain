@@ -2,7 +2,8 @@
 #define KERNEL_H
 
 #include <QObject>
-#include "QDebug"
+#include <QDebug>
+#include <QAction>
 #include <QSharedMemory>
 #include <QMessageBox>
 #include <QProcess>
